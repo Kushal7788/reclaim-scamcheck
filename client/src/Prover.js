@@ -27,7 +27,6 @@ export const Prover = () => {
       const res = await fetch(url, options);
       const data = await res.json();
       setClaimUrl(data.url);
-      console.log(claimUrl);
     } catch (err) {
       console.log(err);
     }

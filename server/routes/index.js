@@ -84,9 +84,6 @@ router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
   //     proofParams: check.data.proofs.map((proof) => proof.parameters),
   //   };
   // }
-  console.log(check.data)
-  console.log(check.data.proofs)
-  console.log(check.data.proofParams)
   res.status(201).send("<h1>Proof was generated</h1>");
 });
 
