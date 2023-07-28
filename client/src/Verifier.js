@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const Verifier = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -9,6 +10,7 @@ export const Verifier = () => {
   }`;
   let { checkId } = useParams();
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
 
@@ -18,10 +20,15 @@ export const Verifier = () => {
       const data = await res.json();
       setData(data.data);
       setCountry(data.data?.country);
-      setName(data.data?.proofs[0]?.parameters?.name);
+      const { name } = JSON.parse(data.data?.proofParams[0]);
+      setName(name);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const goHome = () => {
+    navigate(`/`);
   };
 
   const handleShare = async (link) => {
@@ -90,6 +97,14 @@ export const Verifier = () => {
                   Share verification link ✨
                 </button>
               </div>
+              <div className="flex-row p-5 rounded-lg  gap-4">
+                    <button
+                      onClick={() => goHome()}
+                      class="inline-flex text-black bg-grey-900 border-0 py-2 px-6 focus:outline-none hover:bg-grey-600 rounded text-lg"
+                    >
+                      Create New Magic Link ✨
+                    </button>
+                  </div>
             </div>
           </div>
 
