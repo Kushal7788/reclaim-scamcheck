@@ -8,8 +8,7 @@ function App() {
   const handleClick = async () => {
     const response = await fetch(`${apiUrl}/getId`);
     const data = await response.json();
-    console.log(data);
-    setCheckId(data. checkId);
+    setCheckId(data.checkId);
   };
 
   useEffect(() => {
@@ -42,14 +41,8 @@ function App() {
             <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
               <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
                 ScamChecker, <br class="hidden lg:inline-block" />A new way to
-                proof Identity using ZK
+                prove Identity using ZK
               </h1>
-              <p class="mb-8 leading-relaxed">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla,
-                odit deleniti? Dolores ipsum a cum architecto soluta debitis
-                illum sunt hic adipisci, excepturi inventore recusandae quas vel
-                delectus fugit maxime?
-              </p>
               <div class="flex justify-center">
                 <button
                   onClick={() => {
