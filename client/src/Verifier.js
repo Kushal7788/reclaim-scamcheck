@@ -82,19 +82,17 @@ export const Verifier = () => {
           <div class="container mx-auto   rounded-lg flex h-full p-3 items-center justify-center flex-col">
             <div class="text-center s lg:w-2/3 w-full">
               <p class="mb-8 leading-relaxed">
-                Share this to person for validating their Indentity
+                Share this to person for validating their Identity
               </p>
               <p class="mb-8 hover:underline text-blue-700 text-xl leading-relaxed truncate">
-                <a
-                  href={`${baseUrl}/prover/${checkId}`}
-                >{`${baseUrl}/prover/${checkId}`}</a>
+                {`${baseUrl}/prover/${checkId}`}
               </p>
               <div class="flex justify-center">
                 <button
                   onClick={() => handleShare(`${baseUrl}/prover/${checkId}`)}
                   class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg"
                 >
-                  Share verification link ✨
+                  Copy verification link ✨
                 </button>
               </div>
               <div className="flex-row p-5 rounded-lg  gap-4">
@@ -102,7 +100,7 @@ export const Verifier = () => {
                       onClick={() => goHome()}
                       class="inline-flex text-black bg-grey-900 border-0 py-2 px-6 focus:outline-none hover:bg-grey-600 rounded text-lg"
                     >
-                      Create New Magic Link ✨
+                      Home
                     </button>
                   </div>
             </div>
