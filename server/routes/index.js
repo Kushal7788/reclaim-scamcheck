@@ -28,33 +28,61 @@ router.post("/update/country/:checkId", async (req, res) => {
     return res.status(401).json({ message: "Invalid URL, please check." });
 
   const { country } = req.body;
-  let request;
+  const { provider } = req.body;
+
+  console.log(country,provider);
+
+  requestedProofsArr = [];
   if (country === "IN") {
-    request = reclaim.requestProofs({
-      title: "Reclaim Protocol",
-      baseCallbackUrl: process.env.BASE_URL + "/update/proof",
-      callbackId: check.checkId,
-      requestedProofs: [
-        new reclaim.CustomProvider({
-          provider: "uidai-aadhar",
-          payload: {},
-        }),
-      ],
-    });
+    requestedProofsArr.push(
+      new reclaim.CustomProvider({
+      provider: "uidai-aadhar",
+      payload: {},
+    }));
   }
   else if (country === "USA") {
-    request = reclaim.requestProofs({
-      title: "Reclaim Protocol",
-      baseCallbackUrl: process.env.BASE_URL + "/update/proof",
-      callbackId: check.checkId,
-      requestedProofs: [
-        new reclaim.CustomProvider({
-          provider: "irs-name",
-          payload: {},
-        }),
-      ],
-    });
+    requestedProofsArr.push(
+      new reclaim.CustomProvider({
+      provider: "irs-name",
+      payload: {},
+    }));
   }
+
+  if (provider === "google") {
+    requestedProofsArr.push(
+      new reclaim.CustomProvider({
+      provider: "google-login",
+      payload: {},
+    }));
+  }
+  else if (provider === "outlook") {
+    requestedProofsArr.push(
+      new reclaim.CustomProvider({
+      provider: "outlook-login",
+      payload: {},
+    }));
+  }
+  else if (provider === "godaddy") {
+    requestedProofsArr.push(
+      new reclaim.CustomProvider({
+      provider: "godaddy-login",
+      payload: {},
+    }));
+  }
+  else if (provider === "zoho") {
+    requestedProofsArr.push(
+      new reclaim.CustomProvider({
+      provider: "zoho-email",
+      payload: {},
+    }));
+  }
+  console.log(requestedProofsArr);
+  const request = reclaim.requestProofs({
+    title: "Reclaim Protocol",
+    baseCallbackUrl: process.env.BASE_URL + "/update/proof",
+    callbackId: check.checkId,
+    requestedProofs: requestedProofsArr,
+  });
   const reclaimUrl = await request.getReclaimUrl();
   if (!reclaimUrl)
     return res.status(500).json({ message: "Internal Server Error" });
@@ -74,6 +102,9 @@ router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
     ...check.data,
     proofParams: check.data.proofs.map((proof) => proof.parameters),
   }
+  console.log(check.data)
+  console.log(check.data.proofs)
+  console.log(check.data.proofParams)
   await check.save();
   // const isProofsCorrect = await reclaim.verifyCorrectnessOfProofs(check.checkId,
   //   check.data.proofs
