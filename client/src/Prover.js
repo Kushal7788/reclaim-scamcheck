@@ -9,6 +9,7 @@ export const Prover = () => {
   const [claimUrl, setClaimUrl] = useState(null);
 
   const [selectedOption, setSelectedOption] = useState("IN");
+  const [selectProvider, setSelectProvider] = useState("google");
 
   const postData = async () => {
     try {
@@ -22,6 +23,7 @@ export const Prover = () => {
         },
         body: JSON.stringify({
           country: selectedOption,
+          provider: selectProvider,
         }),
       };
       const res = await fetch(url, options);
@@ -34,6 +36,10 @@ export const Prover = () => {
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
+  };
+
+  const handleProviderOptionChange = (event) => {
+    setSelectProvider(event.target.value);
   };
 
   const handleCopyLink = async (link) => {
@@ -73,7 +79,7 @@ export const Prover = () => {
               Prove Identity & Professional Credentials
             </h1>
           </div>
-          <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 justify-center  sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-center sm:items-end">
+          <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 justify-center  sm:space-x-4 sm:space-y-0 space-y-2 sm:px-0 items-center sm:items-end">
             <div class="relative flex-grow w-full h-full">
               <label for="countries" class="block mb-2 text-xl font-medium ">
                 Select your country
@@ -86,9 +92,25 @@ export const Prover = () => {
               >
                 <option value={"IN"} selected>🇮🇳 India</option>
                 <option value={"USA"}>🇺🇸 USA</option>
-                <option value={"CA"}>🇨🇦 Canada</option>
+                {/* <option value={"CA"}>🇨🇦 Canada</option>
                 <option value={"FR"}>🇫🇷 France</option>
-                <option value={"GER"}>🇩🇪 Germany</option>
+                <option value={"GER"}>🇩🇪 Germany</option> */}
+              </select>
+            </div>
+            <div class="relative flex-grow w-full h-full">
+              <label for="countries" class="block mb-2 text-xl font-medium ">
+                Select your email provider
+              </label>
+              <select
+                value={selectProvider}
+                onChange={handleProviderOptionChange}
+                id="countries"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-xl py-3  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:h-[60px] p-2.5 "
+              >
+                <option value={"google"} selected>Google</option>
+                <option value={"outlook"}>Outlook</option>
+                <option value={"godaddy"}>GoDaddy</option>
+                <option value={"zoho"}>Zoho</option>
               </select>
             </div>
             <button
@@ -97,6 +119,9 @@ export const Prover = () => {
             >
               Submit
             </button>
+          </div>
+          <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 justify-center  sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-center sm:items-end">
+            
           </div>
 
           {claimUrl !== null && (
