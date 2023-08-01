@@ -4,6 +4,7 @@ var { Check } = require("../models/Check");
 const { reclaimprotocol } = require("@reclaimprotocol/reclaim-sdk");
 const bodyParser = require("body-parser");
 const reclaim = new reclaimprotocol.Reclaim();
+const emailProviderData = require("./utils.json")
 
 router.get("/", (request, response) => {
   response.status(200).json({
@@ -100,11 +101,23 @@ router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
   };
   check.data = {
     ...check.data,
-    proofParams: check.data.proofs.map((proof) => proof.parameters),
+    proofParams: check.data.proofs.map((proof) => {
+      if(emailProviderData.hasOwnProperty(proof.provider))
+      {
+        const paramaters = JSON.parse(proof.parameters);
+        let obj = {};
+        obj["email"] = paramaters[emailProviderData[proof.provider]['param1']];
+        return obj;
+      }
+      else
+      {
+        return JSON.parse(proof.parameters);
+      }
+    }),
   }
-  console.log(check.data)
-  console.log(check.data.proofs)
-  console.log(check.data.proofParams)
+  console.log("Data",check.data)
+  console.log("Proofs",check.data.proofs)
+  console.log("Params",check.data.proofParams)
   await check.save();
   // const isProofsCorrect = await reclaim.verifyCorrectnessOfProofs(check.checkId,
   //   check.data.proofs
