@@ -21,8 +21,15 @@ export const Verifier = () => {
       const data = await res.json();
       setData(data.data);
       setCountry(data.data?.country);
-      const { name } = data.data?.proofParams[0];
-      const { email } = data.data?.proofParams[1];
+      let proofDataArr = data.data?.proofParams;
+      console.log(proofDataArr);
+      const proofData = proofDataArr.reduce((result, currentObject) => {
+        // Merge the current object with the result object
+        return { ...result, ...currentObject };
+      }, {});
+      console.log(proofData);
+      const { name } = proofData;
+      const { email } = proofData;
       setName(name);
       setEmail(email);
     } catch (err) {
