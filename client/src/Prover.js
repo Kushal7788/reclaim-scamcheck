@@ -20,6 +20,8 @@ export const Prover = () => {
         headers: {
           Accept: "*/*",
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Sec-Fetch-Mode": "cors",
         },
         body: JSON.stringify({
           country: selectedOption,
