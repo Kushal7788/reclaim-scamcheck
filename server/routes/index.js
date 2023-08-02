@@ -90,6 +90,8 @@ router.post("/update/country/:checkId", async (req, res) => {
   check.data = { country: country };
   await check.save();
   res.status(201).json({ url: reclaimUrl });
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("sec-fetch-mode", "cors");
 });
 
 router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
