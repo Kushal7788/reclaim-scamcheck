@@ -28,6 +28,7 @@ router.post("/update/country/:checkId", async (req, res) => {
   if (!check)
     return res.status(401).json({ message: "Invalid URL, please check." });
 
+  country = req.body.country;
   requestedProofsArr = [];
   if (country === "IN") {
     requestedProofsArr.push(
