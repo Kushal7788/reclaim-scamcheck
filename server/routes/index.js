@@ -78,7 +78,7 @@ router.post("/update/country/:checkId", async (req, res) => {
   const request = reclaim.requestProofs({
     title: "Reclaim Protocol",
     baseCallbackUrl: process.env.BASE_URL + "/update/proof",
-    callbackId: check.checkId,
+    callbackId: toString(check.checkId),
     requestedProofs: requestedProofsArr,
   });
   const reclaimUrl = await request.getReclaimUrl();
