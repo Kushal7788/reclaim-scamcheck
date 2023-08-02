@@ -128,7 +128,7 @@ router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
   //     proofParams: check.data.proofs.map((proof) => proof.parameters),
   //   };
   // }
-  res.status(201).send("<h1>Proof was generated</h1>");
+  res.status(201).send("<h1>Proofs has been shared with the Requestor. \n You can exit the screen</h1>");
 });
 
 router.get("/fetch/:checkId", async (req, res) => {
