@@ -22,12 +22,10 @@ export const Verifier = () => {
       setData(data.data);
       setCountry(data.data?.country);
       let proofDataArr = data.data?.proofParams;
-      console.log(proofDataArr);
       const proofData = proofDataArr.reduce((result, currentObject) => {
         // Merge the current object with the result object
         return { ...result, ...currentObject };
       }, {});
-      console.log(proofData);
       const { name } = proofData;
       const { email } = proofData;
       setName(name);

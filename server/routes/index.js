@@ -28,56 +28,50 @@ router.post("/update/country/:checkId", async (req, res) => {
   if (!check)
     return res.status(401).json({ message: "Invalid URL, please check." });
 
-  const { country } = req.body;
-  const { provider } = req.body;
-
-  console.log(country,provider);
-
   requestedProofsArr = [];
   if (country === "IN") {
     requestedProofsArr.push(
       new reclaim.CustomProvider({
-      provider: "uidai-aadhar",
-      payload: {},
-    }));
+        provider: "uidai-aadhar",
+        payload: {},
+      }));
   }
   else if (country === "USA") {
     requestedProofsArr.push(
       new reclaim.CustomProvider({
-      provider: "irs-name",
-      payload: {},
-    }));
+        provider: "irs-name",
+        payload: {},
+      }));
   }
 
   if (provider === "google") {
     requestedProofsArr.push(
       new reclaim.CustomProvider({
-      provider: "google-login",
-      payload: {},
-    }));
+        provider: "google-login",
+        payload: {},
+      }));
   }
   else if (provider === "outlook") {
     requestedProofsArr.push(
       new reclaim.CustomProvider({
-      provider: "outlook-login",
-      payload: {},
-    }));
+        provider: "outlook-login",
+        payload: {},
+      }));
   }
   else if (provider === "godaddy") {
     requestedProofsArr.push(
       new reclaim.CustomProvider({
-      provider: "godaddy-login",
-      payload: {},
-    }));
+        provider: "godaddy-login",
+        payload: {},
+      }));
   }
   else if (provider === "zoho") {
     requestedProofsArr.push(
       new reclaim.CustomProvider({
-      provider: "zoho-email",
-      payload: {},
-    }));
+        provider: "zoho-email",
+        payload: {},
+      }));
   }
-  console.log(requestedProofsArr);
   const request = reclaim.requestProofs({
     title: "Reclaim Protocol",
     baseCallbackUrl: process.env.BASE_URL + "/update/proof",
@@ -90,8 +84,6 @@ router.post("/update/country/:checkId", async (req, res) => {
   check.data = { country: country };
   await check.save();
   res.status(201).json({ url: reclaimUrl });
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("sec-fetch-mode", "cors");
 });
 
 router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
@@ -104,22 +96,17 @@ router.post("/update/proof", bodyParser.text("*/*"), async (req, res) => {
   check.data = {
     ...check.data,
     proofParams: check.data.proofs.map((proof) => {
-      if(emailProviderData.hasOwnProperty(proof.provider))
-      {
+      if (emailProviderData.hasOwnProperty(proof.provider)) {
         const paramaters = JSON.parse(proof.parameters);
         let obj = {};
         obj["email"] = paramaters[emailProviderData[proof.provider]['param1']];
         return obj;
       }
-      else
-      {
+      else {
         return JSON.parse(proof.parameters);
       }
     }),
   }
-  console.log("Data",check.data)
-  console.log("Proofs",check.data.proofs)
-  console.log("Params",check.data.proofParams)
   await check.save();
   // const isProofsCorrect = await reclaim.verifyCorrectnessOfProofs(check.checkId,
   //   check.data.proofs
