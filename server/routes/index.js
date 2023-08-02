@@ -74,6 +74,7 @@ router.post("/update/country/:checkId", async (req, res) => {
         payload: {},
       }));
   }
+  console.log("check Id: ", check.checkId)
   const request = reclaim.requestProofs({
     title: "Reclaim Protocol",
     baseCallbackUrl: process.env.BASE_URL + "/update/proof",
