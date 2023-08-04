@@ -120,7 +120,7 @@ export const Verifier = () => {
                 Status
               </h1>
               <p class="lg:w-2/3 mx-auto  ">
-                Get realtime update of Verication
+                Get realtime update of Verification Status
               </p>
             </div>
             {!data && (
