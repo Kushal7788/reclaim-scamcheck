@@ -67,7 +67,6 @@ function App() {
         <footer class="text-gray-600  body-font">
           <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
             <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-              
               <img
                 class="w-10 h-10 rounded-full"
                 src="https://assets.website-files.com/63f580596efa74629ceecdf5/646cd0d4bff811689094709c_Reclaim-Logo-Asterisk.jpg"
