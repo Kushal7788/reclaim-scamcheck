@@ -64,7 +64,7 @@ export const Prover = () => {
               class="w-10 h-10 rounded-full"
             />
 
-            <span class="ml-3 font-bold text-xl">Scam Protector</span>
+            <span class="ml-3 font-bold text-xl">WhyTrustYou?</span>
           </a>
           <a href="https://www.reclaimprotocol.org/">
             <button class="inline-flex cursor-pointer items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
